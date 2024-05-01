@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./postCard.module.css";
 import Link from "next/link";
 
-const PostCard = () => {
+const PostCard = ({post}) => {
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -12,9 +12,9 @@ const PostCard = () => {
                 <span className={styles.date}>01.01.2024</span>
             </div>
             <div className={styles.bottom}>
-                <h1 className={styles.title}>제목z</h1>
-                <p className={styles.desc}>동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세</p>
-                <Link className={styles.link} href="/blog/post">더 읽기</Link>
+                <h1 className={styles.title}>{post.title}</h1>
+                <p className={styles.desc}>{post.body}</p>
+                <Link className={styles.link} href={`/blog/${post.id}`}>더 읽기</Link>
             </div>
         </div>
     );
