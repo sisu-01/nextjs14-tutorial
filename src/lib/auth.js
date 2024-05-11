@@ -11,13 +11,13 @@ const login = async (credentials) => {
         const user = await User.findOne({username: credentials.username});
 
         if (!user) {
-            throw new Error("Wrong credentials!");
+            throw new Error("user를 찾을 수 없습니다!");
         }
 
         const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
 
         if (!isPasswordCorrect) {
-            throw new Error("Wrong credentials!");
+            throw new Error("비밀번호가 다릅니다!");
         }
 
         return user;

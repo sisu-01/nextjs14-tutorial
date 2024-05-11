@@ -50,16 +50,18 @@ export const deletePost = async (formData) => {
     }
 }
 
-export const register = async (formData) => {
+export const register = async (previousState, formData) => {
     const { username, email, password, passwordRepeat } = Object.fromEntries(formData);
+    console.log(username, email, password, passwordRepeat);
     if (password !== passwordRepeat) {
-        return "비번이 다름";
+        console.log("zz");
+        return { error: "비번이 다름" };
     }
     try {
         connectToDb();
         const user = await User.findOne({username});
         if (user) {
-            return "이미 존재함";
+            return { error: "username already exist" };
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -70,19 +72,23 @@ export const register = async (formData) => {
         });
         await newUser.save();
         console.log("save to db");
+        return { success: true };
     } catch (error) {
         console.log(error);
-        return {error: "Something went wrong"};
+        return { error: "Something went wrong" };
     }
 }
 
-export const login = async (formData) => {
+export const login = async (previousSate, formData) => {
     const { username, password } = Object.fromEntries(formData);
     try {
         await signIn("credentials", {username, password});
     } catch (error) {
         console.log(error);
-        return {error: "Something went wrong"};
+        if ( error.message.includes("CredentialsSignin")) {
+            return {error: "Invalid username or password"}
+        }
+        throw error;
     }
 }
 
