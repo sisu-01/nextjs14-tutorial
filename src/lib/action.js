@@ -52,9 +52,7 @@ export const deletePost = async (formData) => {
 
 export const register = async (previousState, formData) => {
     const { username, email, password, passwordRepeat } = Object.fromEntries(formData);
-    console.log(username, email, password, passwordRepeat);
     if (password !== passwordRepeat) {
-        console.log("zz");
         return { error: "비번이 다름" };
     }
     try {
