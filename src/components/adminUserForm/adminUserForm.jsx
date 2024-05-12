@@ -14,6 +14,7 @@ const AdminUserForm = () => {
             <input type="text" placeholder="username" name="username" />
             <input type="text" placeholder="email" name="email" />
             <input type="text" placeholder="password" name="password" />
+            <input type="text" placeholder="password Repeat" name="passwordRepeat" />
             <input type="text" placeholder="img" name="img" />
             <select name="isAdmin">
                 <option value="false" defaultValue >User</option>
